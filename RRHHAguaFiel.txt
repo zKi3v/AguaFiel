@@ -1,0 +1,167 @@
+Create database RRHHAguaFiel
+use RRHHAguaFiel
+
+CREATE TABLE Cargos (
+    idCargo INT PRIMARY KEY IDENTITY(1,1),
+    nombreCargo VARCHAR(50) NOT NULL,
+    sueldo DECIMAL(10, 2) NOT NULL,
+);
+	
+INSERT INTO Cargos (nombreCargo, sueldo) VALUES
+('Administrador de Planta', 4000.00),
+('Envasador', 2000.00),
+('Supervisor de Línea', 2500.00),
+('Operario de Mantenimiento', 1800.00),
+('Chofer de Distribución', 2200.00);
+
+select * from Cargos
+
+CREATE TABLE CargosLogin (
+    idCargoLogin INT PRIMARY KEY IDENTITY(1,1),
+    nombreCargo VARCHAR(50) NOT NULL,
+    password NVARCHAR(50) NOT NULL -- Contraseña para acceso al sistema
+);
+
+INSERT INTO CargosLogin (nombreCargo, password) VALUES 
+('Gerente', 'gerente'),
+('Jefe de RR.HH', 'jefe'),
+('Analista de RR.HH', 'analista')
+
+
+CREATE TABLE Empleados (
+    idEmpleado INT PRIMARY KEY IDENTITY(1,1),
+    nombre VARCHAR(50) NOT NULL,
+    apellido VARCHAR(50) NOT NULL,
+    activo BIT DEFAULT 1, -- 1 significa activo, 0 significa inhabilitado
+    fechaContrato DATE,    -- Agregar columna para la fecha de contrato
+	sueldo_base DECIMAL(10, 2), 
+    sueldo_final DECIMAL(10, 2),
+	tipoPago VARCHAR(20) DEFAULT 'Mensual', -- Valores: 'Mensual', 'Quincenal'
+    idCargo INT,
+    FOREIGN KEY (idCargo) REFERENCES Cargos(idCargo)
+);
+
+
+CREATE TABLE Permisos (
+    idPermiso INT PRIMARY KEY IDENTITY(1,1),
+    idEmpleado INT NOT NULL,
+    tipoPermiso VARCHAR(50) NOT NULL, -- Tipo de permiso
+    descripcion NVARCHAR(MAX), -- Detalles adicionales
+    fechaSolicitud DATE NOT NULL DEFAULT GETDATE(), -- Fecha de solicitud
+    estadoPermiso VARCHAR(20) DEFAULT 'Pendiente', -- Pendiente, Aprobado, Rechazado
+    FOREIGN KEY (idEmpleado) REFERENCES Empleados(idEmpleado)
+);
+
+CREATE TABLE Asistencia (
+    idAsistencia INT PRIMARY KEY IDENTITY(1,1),
+    idEmpleado INT,
+	idGrupo INT,
+    fecha DATE NOT NULL,
+    presente BIT NOT NULL,
+    FOREIGN KEY (idEmpleado) REFERENCES Empleados(idEmpleado)
+);
+
+CREATE TABLE GruposAsistencia (
+    idGrupo INT PRIMARY KEY IDENTITY(1,1),
+    fecha DATE NOT NULL,
+    nombreGrupo VARCHAR(50) NOT NULL,
+	aprobado BIT DEFAULT 0
+);
+
+CREATE OR ALTER VIEW Descuento AS
+SELECT E.idEmpleado,
+       E.nombre,
+       E.apellido,
+       E.fechaContrato,
+       C.nombreCargo,
+       E.sueldo_base,
+       SUM(CASE WHEN A.presente = 0 THEN 1 ELSE 0 END) AS total_faltas,
+       E.sueldo_final,  -- Sueldo final almacenado en Empleados
+       E.activo
+FROM Empleados E
+JOIN Cargos C ON E.idCargo = C.idCargo
+LEFT JOIN Asistencia A ON E.idEmpleado = A.idEmpleado
+GROUP BY E.idEmpleado, E.nombre, E.apellido, E.fechaContrato, C.nombreCargo, E.sueldo_base, E.sueldo_final, E.activo;
+
+CREATE TRIGGER trg_InsertEmpleado
+ON Empleados
+AFTER INSERT
+AS
+BEGIN
+    SET NOCOUNT ON;
+    
+    UPDATE Empleados
+    SET sueldo_base = C.sueldo,
+        sueldo_final = C.sueldo
+    FROM Empleados E
+    INNER JOIN Cargos C ON E.idCargo = C.idCargo
+    WHERE E.idEmpleado IN (SELECT idEmpleado FROM inserted);
+END;
+
+UPDATE Empleados
+SET sueldo_base = C.sueldo,
+    sueldo_final = C.sueldo
+FROM Empleados E
+JOIN Cargos C ON E.idCargo = C.idCargo;
+
+CREATE TABLE SueldosCalculados (
+    idSueldo INT IDENTITY PRIMARY KEY,
+    idEmpleado INT NOT NULL,
+    sueldoCalculado DECIMAL(18, 2) NOT NULL,
+    tieneGrati BIT NOT NULL,
+    tieneESS BIT NOT NULL,
+    fechaPago DATETIME NOT NULL,
+    FOREIGN KEY (idEmpleado) REFERENCES Empleados(idEmpleado)
+);
+
+CREATE TABLE GruposPago (
+    idGrupoPago INT IDENTITY PRIMARY KEY,
+	fechaGeneracion DATETIME NOT NULL,
+	estado VARCHAR(20) DEFAULT 'Pendiente',
+    tipoPago NVARCHAR(50) NOT NULL
+);
+
+
+CREATE TABLE DetalleGrupoPago (
+    idDetalle INT IDENTITY PRIMARY KEY,
+    idGrupoPago INT NOT NULL,
+    idEmpleado INT NOT NULL,
+    FOREIGN KEY (idGrupoPago) REFERENCES GruposPago(idGrupoPago),
+    FOREIGN KEY (idEmpleado) REFERENCES Empleados(idEmpleado)
+);
+
+select * from Descuento
+
+-- Poblar la tabla Empleados
+INSERT INTO Empleados (nombre, apellido, activo, fechaContrato, sueldo_base, sueldo_final, idCargo) VALUES
+('Carlos', 'Ramírez', 1, '2023-01-10', 4000.00, 4000.00, 2),
+('Ana', 'Gómez', 1, '2022-07-15', 2000.00, 2000.00, 3),
+('Luis', 'Fernández', 1, '2023-03-20', 2500.00, 2500.00, 4),
+('María', 'López', 1, '2023-05-12', 1800.00, 1800.00, 5),
+('Jorge', 'Pérez', 1, '2021-11-05', 2200.00, 2200.00, 6);
+
+-- Poblar la tabla GruposAsistencia
+INSERT INTO GruposAsistencia (fecha, nombreGrupo, aprobado) VALUES
+('2024-11-20', 'Asistencia Grupo A', 0),
+('2024-11-21', 'Asistencia Grupo B', 0),
+('2024-11-22', 'Asistencia Grupo C', 0);
+
+-- Poblar la tabla Asistencia
+INSERT INTO Asistencia (idEmpleado, idGrupo, fecha, presente) VALUES
+(2, 1, '2024-11-20', 1), -- Carlos asistió al Grupo A
+(3, 1, '2024-11-20', 0), -- Ana no asistió al Grupo A
+(4, 1, '2024-11-20', 1), -- Luis asistió al Grupo A
+(4, 2, '2024-11-21', 1), -- María asistió al Grupo B
+(5, 2, '2024-11-21', 0), -- Jorge no asistió al Grupo B
+(3, 3, '2024-11-22', 1), -- Carlos asistió al Grupo C
+(2, 3, '2024-11-22', 1), -- Ana asistió al Grupo C
+(3, 3, '2024-11-22', 0); -- Luis no asistió al Grupo C
+
+select * from Empleados
+
+-- Poblar la tabla Permisos
+INSERT INTO Permisos (idEmpleado, tipoPermiso, descripcion, estadoPermiso) VALUES
+(6, 'Día personal', 'Asunto personal importante', 'Pendiente'),
+(2, 'Vacaciones', 'Vacaciones de una semana', 'Aprobado'),
+(3, 'Día personal', 'Trámite médico', 'Rechazado'),
+(4, 'Permiso por enfermedad', 'Reposo médico de 2 días', 'Pendiente');
