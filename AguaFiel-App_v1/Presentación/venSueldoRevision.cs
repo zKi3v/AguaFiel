@@ -117,7 +117,7 @@ namespace AguaFiel_App_v1
             decimal sueldoCalculado = Convert.ToDecimal(txtSueldoIngresado.Text);
             bool tieneGrati = chbxGrati.Checked;
             bool tieneESS = chbxESS.Checked;
-            DateTime fechaPago = DateTime.Now; // Puedes usar un `DateTimePicker` si deseas seleccionar una fecha
+            DateTime fechaPago = DateTime.Now;
 
             using (SqlConnection con = new SqlConnection(connectionString))
             {

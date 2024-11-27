@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -60,36 +61,54 @@ namespace AguaFiel_App_v1
             switch (UserRole)
             {
                 case "Analista de RR.HH":
-                    //btnCalculoSueldos.Visible = true;
-                    //btnGenerarReportes.Visible = true;
-                    //btnRevisarInformes.Visible = false;
-                    //btnAprobarDesembolsos.Visible = false;
-                    
+                    //Sueldo
                     btnSueldo.Visible = true;
+                    btnSueldoLista.Enabled = true;
+                    btnAprobacionSueldo. Enabled = false;
+                    btnRevision.Enabled = true;
+                    //Asistencia
                     btnAsis.Visible = true;
-                    btnEmployee.Visible = false;
+                    btnAsisReg.Enabled = true;
+                    btnAprobacion.Enabled = false;
+                    //Empleado
+                    btnEmployee.Visible = true;
+                    btnEmpReg.Enabled = false;
+                    btnEmpLista.Enabled = true;
+                    btnPermisos.Enabled = false;
                     break;
 
                 case "Jefe de RR.HH":
-                    //btnRevisarInformes.Visible = true;
-                    //btnCalculoSueldos.Visible = false;
-                    //btnGenerarReportes.Visible = false;
-                    //btnAprobarDesembolsos.Visible = false;
-
-                    btnSueldo.Visible = false;
-                    btnAsis.Visible = false;
+                    //Sueldo
+                    btnSueldo.Visible = true;
+                    btnSueldoLista.Enabled = true;
+                    btnAprobacionSueldo.Enabled = false;
+                    btnRevision.Enabled = false;
+                    //Asistencia
+                    btnAsis.Visible = true;
+                    btnAsisReg.Enabled = false;
+                    btnAprobacion.Enabled = true;
+                    //Empleado
                     btnEmployee.Visible = true;
+                    btnEmpReg.Enabled = true;
+                    btnEmpLista.Enabled = true;
+                    btnPermisos.Enabled = true;
                     break;
 
                 case "Gerente":
-                    //btnAprobarDesembolsos.Visible = true;
-                    //btnCalculoSueldos.Visible = false;
-                    //btnGenerarReportes.Visible = false;
-                    //btnRevisarInformes.Visible = false;
-
+                    //Sueldo
                     btnSueldo.Visible = true;
+                    btnSueldoLista.Enabled = true;
+                    btnAprobacionSueldo.Enabled = true;
+                    btnRevision.Enabled = false;
+                    //Asistencia
                     btnAsis.Visible = true;
-                    btnEmployee.Visible = false;
+                    btnAsisReg.Enabled = false;
+                    btnAprobacion.Enabled = false;
+                    //Empleado
+                    btnEmployee.Visible = true;
+                    btnEmpReg.Enabled = false;
+                    btnEmpLista.Enabled = true;
+                    btnPermisos.Enabled = false;
                     break;
 
                 default:

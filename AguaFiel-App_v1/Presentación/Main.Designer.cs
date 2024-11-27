@@ -51,6 +51,8 @@
             this.panel4 = new System.Windows.Forms.Panel();
             this.btnAsis = new System.Windows.Forms.Button();
             this.psueldo = new System.Windows.Forms.Panel();
+            this.panel14 = new System.Windows.Forms.Panel();
+            this.btnAprobacionSueldo = new System.Windows.Forms.Button();
             this.panel7 = new System.Windows.Forms.Panel();
             this.btnRevision = new System.Windows.Forms.Button();
             this.panel11 = new System.Windows.Forms.Panel();
@@ -68,8 +70,6 @@
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.panel6 = new System.Windows.Forms.Panel();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.panel14 = new System.Windows.Forms.Panel();
-            this.btnAprobacionSueldo = new System.Windows.Forms.Button();
             this.flsidebar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel2.SuspendLayout();
@@ -83,6 +83,7 @@
             this.panel5.SuspendLayout();
             this.panel4.SuspendLayout();
             this.psueldo.SuspendLayout();
+            this.panel14.SuspendLayout();
             this.panel7.SuspendLayout();
             this.panel11.SuspendLayout();
             this.panel13.SuspendLayout();
@@ -90,7 +91,6 @@
             this.panel1.SuspendLayout();
             this.panel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
-            this.panel14.SuspendLayout();
             this.SuspendLayout();
             // 
             // flsidebar
@@ -362,6 +362,31 @@
             this.psueldo.Size = new System.Drawing.Size(255, 50);
             this.psueldo.TabIndex = 11;
             // 
+            // panel14
+            // 
+            this.panel14.Controls.Add(this.btnAprobacionSueldo);
+            this.panel14.Location = new System.Drawing.Point(6, 173);
+            this.panel14.Name = "panel14";
+            this.panel14.Size = new System.Drawing.Size(255, 55);
+            this.panel14.TabIndex = 14;
+            // 
+            // btnAprobacionSueldo
+            // 
+            this.btnAprobacionSueldo.BackColor = System.Drawing.Color.Black;
+            this.btnAprobacionSueldo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAprobacionSueldo.Font = new System.Drawing.Font("Yu Gothic UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAprobacionSueldo.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.btnAprobacionSueldo.Image = global::AguaFiel_App_v1.Properties.Resources.job;
+            this.btnAprobacionSueldo.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnAprobacionSueldo.Location = new System.Drawing.Point(-17, -4);
+            this.btnAprobacionSueldo.Name = "btnAprobacionSueldo";
+            this.btnAprobacionSueldo.Padding = new System.Windows.Forms.Padding(50, 0, 0, 0);
+            this.btnAprobacionSueldo.Size = new System.Drawing.Size(284, 66);
+            this.btnAprobacionSueldo.TabIndex = 3;
+            this.btnAprobacionSueldo.Text = "APROBACIÓN";
+            this.btnAprobacionSueldo.UseVisualStyleBackColor = false;
+            this.btnAprobacionSueldo.Click += new System.EventHandler(this.btnAprobacionSueldo_Click);
+            // 
             // panel7
             // 
             this.panel7.Controls.Add(this.btnRevision);
@@ -528,31 +553,6 @@
             this.pictureBox3.TabIndex = 3;
             this.pictureBox3.TabStop = false;
             // 
-            // panel14
-            // 
-            this.panel14.Controls.Add(this.btnAprobacionSueldo);
-            this.panel14.Location = new System.Drawing.Point(6, 173);
-            this.panel14.Name = "panel14";
-            this.panel14.Size = new System.Drawing.Size(255, 55);
-            this.panel14.TabIndex = 14;
-            // 
-            // btnAprobacionSueldo
-            // 
-            this.btnAprobacionSueldo.BackColor = System.Drawing.Color.Black;
-            this.btnAprobacionSueldo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAprobacionSueldo.Font = new System.Drawing.Font("Yu Gothic UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAprobacionSueldo.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.btnAprobacionSueldo.Image = global::AguaFiel_App_v1.Properties.Resources.job;
-            this.btnAprobacionSueldo.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnAprobacionSueldo.Location = new System.Drawing.Point(-17, -4);
-            this.btnAprobacionSueldo.Name = "btnAprobacionSueldo";
-            this.btnAprobacionSueldo.Padding = new System.Windows.Forms.Padding(50, 0, 0, 0);
-            this.btnAprobacionSueldo.Size = new System.Drawing.Size(284, 66);
-            this.btnAprobacionSueldo.TabIndex = 3;
-            this.btnAprobacionSueldo.Text = "APROBACIÓN";
-            this.btnAprobacionSueldo.UseVisualStyleBackColor = false;
-            this.btnAprobacionSueldo.Click += new System.EventHandler(this.btnAprobacionSueldo_Click);
-            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -582,6 +582,7 @@
             this.panel5.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
             this.psueldo.ResumeLayout(false);
+            this.panel14.ResumeLayout(false);
             this.panel7.ResumeLayout(false);
             this.panel11.ResumeLayout(false);
             this.panel13.ResumeLayout(false);
@@ -589,7 +590,6 @@
             this.panel1.ResumeLayout(false);
             this.panel6.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
-            this.panel14.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
