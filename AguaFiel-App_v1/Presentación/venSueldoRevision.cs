@@ -60,9 +60,16 @@ namespace AguaFiel_App_v1
 
                 sueldoBase = Convert.ToDecimal(dgvEmpleados.CurrentRow.Cells["sueldo_base"].Value);
                 sueldoFinal = Convert.ToDecimal(dgvEmpleados.CurrentRow.Cells["sueldo_final"].Value);
+                int totalFaltas = Convert.ToInt32(dgvEmpleados.CurrentRow.Cells["total_faltas"].Value);
 
                 txtSueldo.Text = sueldoBase.ToString("0.00");
                 txtSueldoIngresado.Text = sueldoFinal.ToString("0.00");
+                txtFaltas.Text = totalFaltas.ToString();
+
+                decimal penalizacion = sueldoBase * 0.04m * totalFaltas;
+                decimal sueldoAjustado = sueldoBase - penalizacion;
+
+                txtSueldoIngresado.Text = sueldoAjustado.ToString("0.00");
 
                 chbxGrati.Checked = false;
                 chbxESS.Checked = false;

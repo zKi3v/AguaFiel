@@ -57,6 +57,8 @@
             this.dtpFechaContrato = new System.Windows.Forms.DateTimePicker();
             this.btnReg = new System.Windows.Forms.Button();
             this.paneld2 = new AguaFiel_App_v1.paneld();
+            this.txtFaltas = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.paneld1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEmpleados)).BeginInit();
             this.SuspendLayout();
@@ -67,6 +69,8 @@
             this.paneld1.BorderRadius = 30;
             this.paneld1.ColorBottom = System.Drawing.Color.White;
             this.paneld1.ColorTop = System.Drawing.Color.White;
+            this.paneld1.Controls.Add(this.txtFaltas);
+            this.paneld1.Controls.Add(this.label8);
             this.paneld1.Controls.Add(this.btnGuardar);
             this.paneld1.Controls.Add(this.cbPago);
             this.paneld1.Controls.Add(this.label7);
@@ -161,7 +165,7 @@
             // chbxESS
             // 
             this.chbxESS.AutoSize = true;
-            this.chbxESS.Location = new System.Drawing.Point(535, 131);
+            this.chbxESS.Location = new System.Drawing.Point(535, 105);
             this.chbxESS.Name = "chbxESS";
             this.chbxESS.Size = new System.Drawing.Size(144, 17);
             this.chbxESS.TabIndex = 44;
@@ -172,7 +176,7 @@
             // chbxGrati
             // 
             this.chbxGrati.AutoSize = true;
-            this.chbxGrati.Location = new System.Drawing.Point(535, 109);
+            this.chbxGrati.Location = new System.Drawing.Point(535, 83);
             this.chbxGrati.Name = "chbxGrati";
             this.chbxGrati.Size = new System.Drawing.Size(143, 17);
             this.chbxGrati.TabIndex = 43;
@@ -187,8 +191,8 @@
             this.txtSueldoIngresado.Name = "txtSueldoIngresado";
             this.txtSueldoIngresado.Size = new System.Drawing.Size(121, 20);
             this.txtSueldoIngresado.TabIndex = 41;
-            this.txtSueldoIngresado.Tag = "Ingrese el sueldo...";
-            this.txtSueldoIngresado.Text = "Ingrese el sueldo...";
+            this.txtSueldoIngresado.Tag = "";
+            this.txtSueldoIngresado.Text = "Su el sueldo es...";
             // 
             // dgvEmpleados
             // 
@@ -384,6 +388,25 @@
             this.paneld2.Size = new System.Drawing.Size(885, 224);
             this.paneld2.TabIndex = 38;
             // 
+            // txtFaltas
+            // 
+            this.txtFaltas.Location = new System.Drawing.Point(613, 128);
+            this.txtFaltas.Name = "txtFaltas";
+            this.txtFaltas.ReadOnly = true;
+            this.txtFaltas.Size = new System.Drawing.Size(43, 20);
+            this.txtFaltas.TabIndex = 56;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.BackColor = System.Drawing.Color.Transparent;
+            this.label8.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            this.label8.Location = new System.Drawing.Point(555, 127);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(50, 17);
+            this.label8.TabIndex = 55;
+            this.label8.Text = "FALTAS:";
+            // 
             // venSueldoRevision
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -430,5 +453,7 @@
         private System.Windows.Forms.ComboBox cbPago;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button btnGuardar;
+        private System.Windows.Forms.TextBox txtFaltas;
+        private System.Windows.Forms.Label label8;
     }
 }
